@@ -61,32 +61,27 @@ todo-app/
    ```
 
 4. Access the application on web browser.
-   <img src='images/welcomepage.png'>
+   <img src='docs/images/welcomepage.png'>
 
 5. Click on Get Started to register a new user.
-   <img src='images/userregistration.png'>
+   <img src='docs/images/userregistration.png'>
 
 6. Fill in the details and click on Sign Up, and you will be redirected to the login page.
-   <imge src='images/loginpage.png'>
+   <imge src='docs/images/loginpage.png'>
 
 7. Fill in the login form and click on Sign In and you will be land up on the user home page.
-   <img src='images/userhomepage.png'>
+   <img src='docs/images/userhomepage.png'>
 
 8. Enter the details of the task in the input field and click on Add Task button. Once added, you can see the task and it status.
-   <img src='images/addnewtask.png'>
+   <img src='docs/images/addnewtask.png'>
 
 9. Once the task is completed you can mark it as completed by clicking on the green button that says *mark as completed*.
-   <img src='images/marktaskcompleted.png'>
+   <img src='docs/images/marktaskcompleted.png'>
 
 10. To delete the task, click on the small bin icon at the end of the task on the right nside the status of the task.
-   <img src='images/deletetask.png'>
+   <img src='docs/images/deletetask.png'>
 
 11. Once done, you can logout of the application by clicking on the logout button and you will land on the welcome page again.
 
     
-   
-   
-   
-   
-   
    
