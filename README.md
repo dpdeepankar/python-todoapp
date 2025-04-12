@@ -67,7 +67,7 @@ todo-app/
    <img src='docs/images/userregistration.png'>
 
 6. Fill in the details and click on Sign Up, and you will be redirected to the login page.
-   <imge src='docs/images/loginpage.png'>
+   <img src='docs/images/loginpage.png'>
 
 7. Fill in the login form and click on Sign In and you will be land up on the user home page.
    <img src='docs/images/userhomepage.png'>
