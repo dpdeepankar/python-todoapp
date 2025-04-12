@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, flash, get_flashed_messages, url_for, redirect, session
+from urllib.parse import urlparse
 import sqlite3
 
 app = Flask(__name__)
@@ -45,8 +46,14 @@ def load_user_registeration_page():
 
 @app.route('/login')
 def load_user_login_page():
-    print(session)
-    if 'email' in session:
+    referrer_url = request.referrer
+
+    if referrer_url:
+        parsed_url = urlparse(referrer_url)
+        referrer_url = parsed_url.path
+        print(referrer_url)
+
+    if referrer_url != '/register' and 'email' in session:
         return redirect('/userlogin')
     else:
         return render_template('userlogin.html')
@@ -77,6 +84,15 @@ def adduser():
 
 @app.route('/userlogin', methods=['GET','POST'])
 def loginuser():
+    referrer_url = request.referrer
+
+    if referrer_url:
+        parsed_url = urlparse(referrer_url)
+        referrer_url = parsed_url.path
+
+    if referrer_url == '/login':
+        session.clear()
+
     if 'email' in session:
         user_email = session['email']
         conn = sqlite3.connect("todo.db")
