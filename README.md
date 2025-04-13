@@ -127,7 +127,7 @@ fe514af317da   python-todoapp   "python -u app.py"   25 seconds ago   Up 25 seco
 ```
 
 Let's go over the browser and browse to our host IP and port 32002. 
-URL: http://<hostip>:32002
+URL: http://hostip:32002
 
 <img src="docs/images/dockerdeploy.png">
 
