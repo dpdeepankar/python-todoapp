@@ -1,4 +1,4 @@
-# Setup Kind Cluster
+# Setup Kind Cluster with nginx ingress
 
 ```bash
 cat <<EOF | kind create cluster --config=-
