@@ -16,7 +16,7 @@ nodes:
 EOF
 ```
 
-## Now since we are going to run this setup on local we would need to expose our application. For that we would need to simulate load balancer. There is a fantastic document avaialble with kind for install a <a href=https://kind.sigs.k8s.io/docs/user/loadbalancer/>Cloud Provider Kind</a> 
+Now since we are going to run this setup on local we would need to expose our application. For that we would need to simulate load balancer. There is a fantastic document avaialble with kind for install a <a href=https://kind.sigs.k8s.io/docs/user/loadbalancer/>Cloud Provider Kind</a> 
 
 But before that we need to install golang on the system, if its not already present.  You can find the available go versions <a href=https://go.dev/dl/>here</a>
 
