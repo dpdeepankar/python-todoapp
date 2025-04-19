@@ -88,7 +88,7 @@ todo-app/
 I have added Dockerfile to dockerize the app. Use the docker file to create a docker image and deploy on docker/kubernetes. Since we used python alpine image as the base image for our application notice how small our app image is.
 
 ```
-$ docker build -t python-todoapp ${PWD} --network=host
+$ docker build -t python-todoapp:v1 ${PWD} 
 [+] Building 8.8s (9/9) FINISHED                                                                                                                                                             docker:default
  => [internal] load build definition from Dockerfile                                                                                                                                                   0.0s
  => => transferring dockerfile: 435B                                                                                                                                                                   0.0s
@@ -109,8 +109,8 @@ $ docker build -t python-todoapp ${PWD} --network=host
 
 # check the newly created docker image.
 $ docker images
-REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
-python-todoapp   latest    72407b323e7c   35 seconds ago   69.4MB
+REPOSITORY          TAG       IMAGE ID       CREATED          SIZE
+python-todoapp:v1   latest    72407b323e7c   35 seconds ago   69.4MB
 
 ```
 
@@ -118,7 +118,7 @@ python-todoapp   latest    72407b323e7c   35 seconds ago   69.4MB
 Now its time to deploy our app and then access it on browser. We are your host port binding and thus our app will be accessible on port 32002 of the host.
 
 ```
-$ docker run -d -p 32002:5000 python-todoapp
+$ docker run -d -p 32002:5000 python-todoapp:v1
 fe514af317da97022456519dd047eba6950cb3f84d7ff07d75603f37133880fe
 
 $ docker ps
@@ -130,6 +130,65 @@ Let's go over the browser and browse to our host IP and port 32002.
 URL: http://hostip:32002
 
 <img src="docs/images/dockerdeploy.png">
+
+## Running app on KinD cluster.
+
+So far we have seen runing app locally as well as as a docker container. Now lets deploy it on a container orchestrator like Kubernetes. We are using KinD cluster to demonstrate this use case.
+
+If you would like to setup KinD cluster you can follow steps given on <a href=kind-cluster-setup/README.md> here</a>
+
+First lets load the created docker image on KinD cluster. Important to note is that KinD do not behave well with the latest tag so tag your image anything but latest.
+
+```Load Docker image to KinD
+kind load docker-image python-todoapp:v1
+```
+
+* Lets use the helm chart in the repo to deploy the application. Update line number 10 and 14 with the image name and tag that you have created.
+
+```
+image:
+  repository: python-todoapp
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "v1"
+```
+
+```Deploy Helm Chart
+helm upgrade -i python-todoapp -n default helm/python-todo-app/
+```
+
+Lets verify the components that our helm chart has deployed and see if the application is running.
+```
+$ kubectl get pods
+NAME                                              READY   STATUS    RESTARTS   AGE
+python-todoapp-python-todo-app-6987485587-md8kw   1/1     Running   0          11m
+
+$ kubectl get svc
+NAME                             TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+kubernetes                       ClusterIP   10.96.0.1      <none>        443/TCP   102m
+python-todoapp-python-todo-app   ClusterIP   10.96.41.251   <none>        80/TCP    14m
+
+$ kubectl get ingress
+NAME                             CLASS   HOSTS        ADDRESS     PORTS   AGE
+python-todoapp-python-todo-app   nginx   kubernetes   localhost   80      14m
+
+```
+
+Nginx only responds to request with a proper URL it won't work on the ip address. In the above output see the name in ADDRESS column, this is what you need to set in /etc/hosts file of your host machine running KinD cluster.
+
+```
+echo <host_ip> <address> >> /etc/hosts
+```
+
+Now we can access it using the host name on url http://kubernetes
+
+<img src="docs/images/kindapp.png">
+
+
+
+
+
 
 
 
