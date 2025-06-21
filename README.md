@@ -183,7 +183,7 @@ echo <host_ip> <address> >> /etc/hosts
 
 Now we can access it using the host name on url http://kubernetes
 
-<img src="docs/images/kindapp.png"> 
+<img src="docs/images/kindapp.png">
 
 
 
