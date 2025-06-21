@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, request, render_template, flash, get_flashed_messages, url_for, redirect, session
+from flask import Flask, request, render_template, flash, get_flashed_messages, url_for, redirect, session, Response
 from urllib.parse import urlparse
 from prometheus_flask_exporter import PrometheusMetrics
 from prometheus_client import generate_latest
