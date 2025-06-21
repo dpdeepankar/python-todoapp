@@ -10,5 +10,8 @@ COPY . /app
 # install the dependencies.
 RUN python -m pip install --no-cache-dir -r requirements.txt
 
+# Expose port for the application
+EXPOSE 5000
+
 # Start app, setting ubuffered to capture all the console logs
 CMD ["python","-u","app.py"]
