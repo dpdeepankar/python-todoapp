@@ -2,10 +2,11 @@ import sqlite3
 from flask import Flask, request, render_template, flash, get_flashed_messages, url_for, redirect, session
 from urllib.parse import urlparse
 from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_client import generate_latest
 
 app = Flask(__name__)
 app.secret_key = "demoapp"
-metrics = PrometheusMetrics(app)
+metrics = PrometheusMetrics(app, path=None)
 
 print(app.url_map)
 
@@ -278,6 +279,12 @@ def deletetask():
 def logout():
     session.clear()
     return redirect('/')
+
+# prometheus metrics exposure
+@app.route("/metrics")
+def metrics_export():
+    return Response(generate_latest(), mimetype="text/plain")
+    
 
 if __name__ == "__main__":
     init_db()
