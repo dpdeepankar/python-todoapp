@@ -67,4 +67,6 @@ readinessProbe:
   httpGet:
     path: /
     port: http
-
+serviceAccount:
+  create: false
+  name: ""
