@@ -1,9 +1,11 @@
 import sqlite3
 from flask import Flask, request, render_template, flash, get_flashed_messages, url_for, redirect, session
 from urllib.parse import urlparse
+from prometheus_flask_exporter import PrometheusMetrics
 
 app = Flask(__name__)
 app.secret_key = "demoapp"
+metrics = PrometheusMetrics(app)
 
 # Initialize database
 def init_db():
