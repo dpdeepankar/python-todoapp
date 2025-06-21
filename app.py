@@ -7,6 +7,8 @@ app = Flask(__name__)
 app.secret_key = "demoapp"
 metrics = PrometheusMetrics(app)
 
+print(app.url_map)
+
 # Initialize database
 def init_db():
     #Call sqlite3.connect() to create a connection to the database todo.db in the current working directory, creating it if it does not exist.
